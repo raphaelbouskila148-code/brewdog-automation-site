@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrewDog USA — Test Automation Case Study | Raphael Bouskila</title>
+<meta name="description" content="A UI test automation framework for the BrewDog USA store: 37 tests in Python, Playwright and pytest on the Page Object Model, with Allure reporting and GitHub Actions CI. An independent QA portfolio case study by Raphael Bouskila.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">BrewDog <i>/ QA</i></a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+    <ul id="menu">
+      <li><a class="l" href="#who">Who</a></li>
+      <li><a class="l" href="#store">The store</a></li>
+      <li><a class="l" href="#watch">Watch</a></li>
+      <li><a class="l" href="#coverage">Coverage</a></li>
+      <li><a class="l" href="#stack">Stack</a></li>
+      <li><a class="l" href="#build">Build</a></li>
+      <li><a class="l" href="#ci">Report &amp; CI</a></li>
+      <li><a class="l" href="#source">Source</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===================================================== HERO -->
+<header class="hero" id="top">
+  <div class="inner">
+    <div class="left">
+      <span class="lab kick">QA Portfolio · Automation Case Study</span>
+      <h1 class="d1">I tested the shop<br>by hand. Then I<br><em>automated</em> it.</h1>
+      <p class="lede">
+        246 manual test cases and 72 reported bugs on the BrewDog USA store — then a UI automation
+        framework in Python, Playwright and pytest that re-runs the scenarios worth repeating,
+        on three browsers, on every push.
+      </p>
+      <div class="cta">
+        <a class="btn fill" href="https://raphaelbouskila148-code.github.io/brewdog-automation/" target="_blank" rel="noopener">Live Allure report</a>
+        <a class="btn" href="https://github.com/raphaelbouskila148-code/brewdog-automation" target="_blank" rel="noopener">Source code</a>
+      </div>
+    </div>
+    <div class="right">
+      <video src="videos/demo_homepage.mp4" poster="videos/poster_homepage.jpg" autoplay muted loop playsinline></video>
+      <span class="cap">Live run · test_homepage.py</span>
+    </div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>37</b><span>automated tests</span></div>
+    <div class="stat"><b>11</b><span>test classes</span></div>
+    <div class="stat"><b>10</b><span>page objects</span></div>
+    <div class="stat"><b>3</b><span>browser engines</span></div>
+    <div class="stat"><b>246</b><span>manual cases first</span></div>
+    <div class="stat"><b>72</b><span>bugs reported</span></div>
+  </div>
+</div>
+
+<!-- ===================================================== WHO -->
+<section id="who">
+  <div class="wrap">
+    <div class="about">
+      <img src="assets/raphael-portrait.jpg" alt="Raphael Bouskila" width="230" height="230">
+      <div>
+        <span class="lab" style="color:var(--orange); display:block; margin-bottom:12px">Who built this</span>
+        <h2 class="d2" style="margin-bottom:18px">Raphael Bouskila — QA Engineer</h2>
+        <p>
+          I came to this store as a manual tester first: 246 test cases executed in TestRail across desktop
+          and mobile, 72 defects reported in Jira with steps, severity and evidence, and a No-Go release
+          recommendation written up in the test report.
+        </p>
+        <p>
+          This project is the sequel. Rather than automating everything, I automated the scenarios worth
+          running again and again — and kept the manual case numbers as the test IDs, so any red test in the
+          report traces straight back to a written manual case. The automation then found two of those
+          live-site bugs on its own, without being told where to look.
+        </p>
+        <div class="cta" style="margin-top:22px">
+          <a class="btn" href="https://raphaelbouskila148-code.github.io/raphael-QA-HTML1/" target="_blank" rel="noopener">My portfolio</a>
+          <a class="btn" href="https://www.linkedin.com/in/raphael-bouskila/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="mailto:raphaelbouskila148@gmail.com">Email me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="bar">
+  <div class="wrap">
+    <span class="lab">The system under test</span>
+    <span class="lab t">usa.brewdog.com · live production site</span>
+  </div>
+</div>
+
+<!-- ===================================================== THE STORE -->
+<section class="paper" id="store">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">What is being tested</span>
+      <h2 class="d2">A real shop, not a demo site</h2>
+      <p class="sub">
+        Every test runs against the live BrewDog USA store — real products, real stock levels, real prices,
+        a real cart. These are frames from my own test runs; the orange bar at the bottom of each page is
+        drawn by the framework to say which test is running.
+      </p>
+    </div>
+
+    <div class="strip">
+      <figure>
+        <img src="videos/shot_shop.jpg" alt="The Non-Alcoholics category during a test run">
+        <figcaption><b>Category page</b>Six categories are checked for products. Stock changes daily, so the tests never assume a particular beer is there.</figcaption>
+      </figure>
+      <figure>
+        <img src="videos/shot_product.jpg" alt="A product page during a test run">
+        <figcaption><b>Product page</b>A fixture hunts the category until it finds a product actually in stock, then checks name, USD price and the basket button.</figcaption>
+      </figure>
+      <figure>
+        <img src="videos/shot_bars.jpg" alt="The bar locator during a test run">
+        <figcaption><b>Bar locator</b>Searching a city must list that city's bar — and a place with no bar must say so, not show the wrong ones.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== WATCH -->
+<section id="watch">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">Recorded on the live site</span>
+      <h2 class="d2">Watch the tests run</h2>
+      <p class="sub">
+        Six real runs. The coloured boxes and the bar at the foot of the page are drawn by the framework
+        itself, so anyone can follow what is being checked without reading a line of code.
+      </p>
+    </div>
+
+    <div class="grid g3">
+      <article class="cell media">
+        <span class="flag">Smoke</span>
+        <video src="videos/demo_homepage.mp4" poster="videos/poster_homepage.jpg" controls preload="none"></video>
+        <div class="body">
+          <div class="id">N-1 · T267</div>
+          <h3>Homepage</h3>
+          <p>Loads with a success status and the BrewDog title; the age gate is checked for a first-time visitor.</p>
+        </div>
+      </article>
+
+      <article class="cell media">
+        <span class="flag">Smoke</span>
+        <video src="videos/demo_product.mp4" poster="videos/poster_product.jpg" controls preload="none"></video>
+        <div class="body">
+          <div class="id">T164-1 · T226 · T164-2</div>
+          <h3>Product page</h3>
+          <p>Finds a product that is actually in stock, then checks its name, a price in USD and an enabled “Add to basket”.</p>
+        </div>
+      </article>
+
+      <article class="cell media">
+        <span class="flag t">Data-driven</span>
+        <video src="videos/demo_footer.mp4" poster="videos/poster_footer.jpg" controls preload="none"></video>
+        <div class="body">
+          <div class="id">T315 · T319 · T323 · T324</div>
+          <h3>Footer links</h3>
+          <p>One test, four rows of data: Shipping, Contact, Terms and Privacy each point where they claim.</p>
+        </div>
+      </article>
+
+      <article class="cell media">
+        <span class="flag">Mobile</span>
+        <video src="videos/demo_mobile.mp4" poster="videos/poster_mobile.jpg" controls preload="none"></video>
+        <div class="body">
+          <div class="id">N-3 · N-4</div>
+          <h3>Phone screen</h3>
+          <p>At 390 × 680 the homepage and a category must list products and fit with no sideways scrolling.</p>
+        </div>
+      </article>
+
+      <article class="cell media">
+        <span class="flag">Validation</span>
+        <video src="videos/demo_newsletter.mp4" poster="videos/poster_newsletter.jpg" controls preload="none"></video>
+        <div class="body">
+          <div class="id">T331-1 · T331-2 · T331-3</div>
+          <h3>Newsletter form</h3>
+          <p>Fields are present, and invalid or empty input is refused — read from the browser's own validation message. Nobody is ever subscribed.</p>
+        </div>
+      </article>
+
+      <article class="cell media">
+        <span class="flag t">Data-driven</span>
+        <video src="videos/demo_bars.mp4" poster="videos/poster_bars.jpg" controls preload="none"></video>
+        <div class="body">
+          <div class="id">T128 · T126 · N-5</div>
+          <h3>Bar locator</h3>
+          <p>Denver and Las Vegas must each find their bar; a place with no bar must show the right message.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="marks" style="margin-top:34px">
+      <div class="mk o"><div class="t">Orange — doing</div><p>CLICK · PRESS: Enter. The element the test is acting on.</p></div>
+      <div class="mk b"><div class="t">Blue — entering</div><p>TYPE: 'IPA' · CHOOSE: de. Fields being filled or chosen.</p></div>
+      <div class="mk g"><div class="t">Green — checking</div><p>READ THE TEXT · COUNT: 24 FOUND · CHECK: IS IT SHOWN?</p></div>
+      <div class="mk h"><div class="t">Grey dashed — hidden</div><p>In the page code, but not visible to a real user.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== COVERAGE -->
+<section class="paper" id="coverage">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">Coverage</span>
+      <h2 class="d2">Eleven classes. Thirty-seven tests.</h2>
+      <p class="sub">
+        One class per area of the shop. Every test is also tagged <code>smoke</code>, <code>regression</code>
+        or <code>mobile</code>, so a quick confidence run takes two minutes instead of seven.
+      </p>
+    </div>
+
+    <div class="cov">
+      <div class="row"><div class="n">2</div><div class="cls">TestHomepage</div><div class="what">Loads with a success status and the right title; the age gate is shown to a first-time visitor</div><div class="tags">smoke · regression</div></div>
+      <div class="row"><div class="n">7</div><div class="cls">TestShop</div><div class="what">Six shop categories each list products (data-driven); clicking a product opens its page</div><div class="tags">smoke · regression</div></div>
+      <div class="row"><div class="n">3</div><div class="cls">TestProduct</div><div class="what">An in-stock product shows its name, a price in USD and an enabled “Add to basket”</div><div class="tags">smoke</div></div>
+      <div class="row"><div class="n">2</div><div class="cls">TestSearch</div><div class="what">Header search returns matching products; a no-match search tells the user</div><div class="tags">smoke · regression</div></div>
+      <div class="row"><div class="n">3</div><div class="cls">TestCart</div><div class="what">A new visitor's cart is empty; adding a product raises the count and lists it on the cart page</div><div class="tags">smoke · regression</div></div>
+      <div class="row"><div class="n">4</div><div class="cls">TestFooter</div><div class="what">Shipping, Contact, Terms and Privacy links point at the right pages (data-driven)</div><div class="tags">smoke</div></div>
+      <div class="row"><div class="n">2</div><div class="cls">TestMobile</div><div class="what">Homepage and a category fit a 390 × 680 phone screen with no sideways scrolling</div><div class="tags">mobile</div></div>
+      <div class="row"><div class="n">5</div><div class="cls">TestLogin</div><div class="what">Sign-in page opens; empty and three malformed emails are rejected (data-driven)</div><div class="tags">smoke · regression</div></div>
+      <div class="row"><div class="n">3</div><div class="cls">TestNewsletter</div><div class="what">Signup fields are present; invalid and empty input is refused by the browser</div><div class="tags">smoke · regression</div></div>
+      <div class="row"><div class="n">3</div><div class="cls">TestRegion</div><div class="what">US is the selected region; Germany and Great Britain open their own stores</div><div class="tags">smoke · regression</div></div>
+      <div class="row"><div class="n">3</div><div class="cls">TestBars</div><div class="what">Bar search finds a city's bar (data-driven); nowhere shows “No bars found”</div><div class="tags">regression</div></div>
+      <div class="row tot"><div class="n">37</div><div class="cls">11 classes</div><div class="what">Two of them are known BrewDog bugs, reported as known issues rather than failures</div><div class="tags">smoke · regression · mobile</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================================================== STACK -->
+<section id="stack">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">Tools &amp; technologies</span>
+      <h2 class="d2">What it is made of</h2>
+      <p class="sub">
+        Everything listed here is actually used in the repository. Nothing is on this list because it
+        looks good on a CV.
+      </p>
+    </div>
+
+    <div class="grid g3">
+      <div class="cell">
+        <span class="lab">Language &amp; browser</span><div class="ico"><img src="assets/logos/python.png" alt="Python" title="Python" loading="lazy"><img src="assets/logos/playwright.png" alt="Playwright" title="Playwright" loading="lazy"><img src="assets/logos/pycharm.png" alt="PyCharm" title="PyCharm" loading="lazy"><img src="assets/logos/chrome.png" alt="Chrome" title="Chrome" loading="lazy"><img src="assets/logos/firefox.png" alt="Firefox" title="Firefox" loading="lazy"><img src="assets/logos/webkit.png" alt="WebKit" title="WebKit" loading="lazy"></div>
+        <h3>Python · Playwright</h3>
+        <p><b class="brand-py">Python 3.13</b> · <b class="brand-pw">Playwright 1.64</b> for driving the browser · <b class="brand-pw">pytest-playwright</b> for the
+        browser fixtures · <b>Chromium, Firefox, WebKit</b> · <b class="brand-pc">PyCharm</b> as the IDE.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Test framework</span><div class="ico"><img src="assets/logos/pytest.png" alt="pytest" title="pytest" loading="lazy"><img src="assets/logos/python.png" alt="Python" title="Python" loading="lazy"></div>
+        <h3>pytest</h3>
+        <p><b class="brand-pt">pytest 9</b> · <b>Page Object Model</b> · <b>fixtures</b> in conftest.py · <b>parametrize</b> for
+        data-driven tests · a <b>JSON data provider</b> · <b>markers</b> (smoke, regression, mobile) ·
+        <b>xfail</b> for known issues.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Reporting &amp; evidence</span><div class="ico"><img src="assets/logos/allure.png" alt="Allure Report" title="Allure Report" loading="lazy"><img src="assets/logos/pytest.png" alt="pytest-html" title="pytest-html" loading="lazy"></div>
+        <h3>Allure</h3>
+        <p><b class="brand-al">allure-pytest</b> with steps, attachments, severity and epic/feature/story · <b class="brand-pt">pytest-html</b> for a
+        single-file report · <b>screenshots, video and Playwright traces</b> captured on failure ·
+        an <b>environment file</b> written at the start of every run.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">CI/CD &amp; hosting</span><div class="ico"><img src="assets/logos/github.png" alt="GitHub" title="GitHub" loading="lazy"><img src="assets/logos/githubactions.png" alt="GitHub Actions" title="GitHub Actions" loading="lazy"></div>
+        <h3>GitHub Actions</h3>
+        <p><b class="brand-git">Git</b> and <b class="brand-gh">GitHub</b> · a <b>matrix build</b> across three browser engines · scheduled weekly
+        runs · build <b>artifacts</b> for every run · the report published to <b class="brand-gh">GitHub Pages</b>.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Where it started</span><div class="ico"><img src="assets/logos/testrail.png" alt="TestRail" title="TestRail" loading="lazy"><img src="assets/logos/jira.png" alt="Jira" title="Jira" loading="lazy"></div>
+        <h3>Manual QA</h3>
+        <p><b class="brand-tr">TestRail</b> for 246 executed cases · <b class="brand-jr">Jira</b> for 72 defects with steps, severity and evidence ·
+        <b>STD</b> and <b>STR</b> documentation in Excel · the manual case numbers carried into the automated
+        test IDs.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">AI for QA</span><div class="ico"><img src="assets/logos/claude.png" alt="Claude" title="Claude" loading="lazy"><img src="assets/logos/openai.png" alt="OpenAI Codex" title="OpenAI Codex" loading="lazy"></div>
+        <h3>AI-assisted QA workflows</h3>
+        <p><b class="brand-cl">Claude Code</b> · <b class="brand-oa">OpenAI Codex</b> · custom <b>skills, hooks and commands</b> ·
+        multi-step <b>agent workflows</b> · <b>prompt engineering</b>. Used to speed up test design,
+        refactoring and reporting — with all output reviewed, every test run against the live site and
+        every defect reproduced manually.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== BUILD -->
+<section id="build">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">How it is built</span>
+      <h2 class="d2">Tests say what. Pages know how.</h2>
+      <p class="sub">
+        One rule runs through the whole framework, and it is why there is not a single CSS selector inside
+        any test file.
+      </p>
+    </div>
+
+    <div class="grid g4" style="margin-bottom:26px">
+      <div class="cell"><span class="lab">tests/</span><h3>What to check</h3><p>11 classes, 37 tests. Asserts only — readable as plain English.</p></div>
+      <div class="cell"><span class="lab">pages/</span><h3>How to do it</h3><p>10 page objects. Every locator and every action lives here.</p></div>
+      <div class="cell"><span class="lab">base_page.py</span><h3>The single door</h3><p>The only file that calls Playwright directly. All pages inherit from it.</p></div>
+      <div class="cell"><span class="lab">usa.brewdog.com</span><h3>The real store</h3><p>Tests run against the live site — never a mock, never a staging copy.</p></div>
+    </div>
+
+    <div class="note" style="margin-bottom:26px">
+      <b>Why it pays:</b> the Allure steps and the on-screen boxes were added to <code>base_page.py</code>
+      once, and all 37 tests inherited them. If BrewDog renames a button tomorrow, exactly one line changes.
+    </div>
+
+    <pre class="tree"><b>brewdog-automation/</b>
+├── <b>.github/workflows/</b>tests.yml   <i># CI: 3 browsers, publishes the Allure report</i>
+├── <b>data/</b>test_data.json           <i># the rows the data-driven tests run on</i>
+├── <b>docs/</b>BrewDog_STD.xlsx         <i># the test plan, written before the code</i>
+├── <b>pages/</b>                        <i># page objects (POM)</i>
+│     base_page.py  home_page.py  collection_page.py  product_page.py
+│     search_page.py  cart_page.py  login_page.py  newsletter_form.py
+│     region_selector.py  bar_locator_page.py  screen_marks.py
+├── <b>tests/</b>                        <i># one file per area of the shop</i>
+│     test_homepage.py  test_shop.py  test_product.py  test_search.py
+│     test_cart.py  test_footer.py  test_mobile.py  test_login.py
+│     test_newsletter.py  test_region.py  test_bars.py
+├── conftest.py                   <i># shared fixtures + the Allure environment file</i>
+├── data_provider.py              <i># reads the JSON test data</i>
+├── pytest.ini                    <i># run options, markers</i>
+└── requirements.txt</pre>
+
+    <div class="grid g3" style="margin-top:30px">
+      <div class="cell"><span class="lab">Fixtures</span><h3>Setup tests share</h3><p>Fixed viewport, locale and time zone, so a run cannot pass on one machine and fail on another. One fixture hunts a category for a product that is actually in stock, so no test fails because the beer sold out.</p></div>
+      <div class="cell"><span class="lab">Data-driven</span><h3>One test, many rows</h3><p>Five data sets in <code>data/test_data.json</code> — categories, footer links, invalid emails, countries, cities. Adding a case means editing a line of text, not Python.</p></div>
+      <div class="cell"><span class="lab">Traceability</span><h3>IDs that mean something</h3><p>Test IDs are the case numbers from my manual TestRail run. <code>T304-1</code> and <code>T304-2</code> are two automated tests covering one manual case; <code>N-1…N-5</code> are new tests with no manual twin.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== REPORT + CI -->
+<section class="dark" id="ci">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">Reporting &amp; continuous integration</span>
+      <h2 class="d2">It runs without me, and it reports for itself</h2>
+      <p class="sub">
+        GitHub Actions runs the whole suite on every push, every pull request, every Monday morning and on
+        demand — in three browser engines at once — then publishes an Allure report. The weekly run matters:
+        BrewDog can change their site without telling me, and a test that passed in March can be red in April
+        with no change to my code.
+      </p>
+    </div>
+
+    <div class="grid g4">
+      <div class="cell"><span class="lab">Tests</span><b class="big" style="color:var(--teal)">37</b><p>in 11 classes, 3 browsers</p></div>
+      <div class="cell"><span class="lab">Passing</span><b class="big" style="color:#fff">35</b><p>plus 2 known issues (xfail)</p></div>
+      <div class="cell"><span class="lab">Severity</span><b class="big" style="color:#fff">15</b><p>critical · 15 normal · 7 minor</p></div>
+      <div class="cell"><span class="lab">Published</span><b class="big" style="color:var(--teal)">Auto</b><p>to GitHub Pages on every run on main</p></div>
+    </div>
+
+    <div class="grid g4" style="margin-top:24px">
+      <div class="cell"><span class="lab">Behaviors</span><h3>Epic → Feature → Story</h3><p>Four epics: Browse the store, Buy a product, Customer account, Store settings and locations.</p></div>
+      <div class="cell"><span class="lab">Steps</span><h3>Every action, in order</h3><p>Each click, read and check is its own step with its own timing, because the page objects are decorated.</p></div>
+      <div class="cell"><span class="lab">Evidence</span><h3>Screenshot · video · trace</h3><p>Saved on failure only, as downloadable artifacts. “It failed on my machine” is not a bug report; these are.</p></div>
+      <div class="cell"><span class="lab">Honest results</span><h3>Skipped, not faked</h3><p>The live site treats datacenter traffic as a bot. When it challenges the run, those tests report as skipped <b>with the reason</b> instead of as false failures.</p></div>
+    </div>
+
+    <div class="cta" style="margin-top:30px">
+      <a class="btn inv" href="https://raphaelbouskila148-code.github.io/brewdog-automation/" target="_blank" rel="noopener">Open the live report</a>
+      <a class="btn inv" href="https://github.com/raphaelbouskila148-code/brewdog-automation/actions" target="_blank" rel="noopener">See the workflow runs</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ISSUES -->
+<section id="issues">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">Findings</span>
+      <h2 class="d2">Bugs the automation reproduced</h2>
+      <p class="sub">
+        Both were first found by hand in the manual round. Both are now permanent tests marked
+        <code>xfail</code>: reported as known issues in every run without turning the pipeline red, and they
+        flip to <b>XPASS</b> the day BrewDog fixes them.
+      </p>
+    </div>
+
+    <div class="issue">
+      <div class="id">T267</div>
+      <div>
+        <h4>The age gate is switched off</h4>
+        <p>An alcohol retailer should ask a first-time visitor to confirm their age. The gate exists in the page code but is never shown, so visitors are never asked.</p>
+        <span class="pill">xfail · known issue</span>
+      </div>
+    </div>
+    <div class="issue">
+      <div class="id">T298</div>
+      <div>
+        <h4>A no-match search shows unrelated products</h4>
+        <p>Searching for something that matches nothing returns a page of unrelated beers and no “no results” message — so the customer believes those products matched the search.</p>
+        <span class="pill">xfail · known issue</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== SOURCE -->
+<section id="source">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">Documentation &amp; source</span>
+      <h2 class="d2">Everything is open</h2>
+      <p class="sub">The code, the plan it was written from, the report it produces, and the manual round it came out of.</p>
+    </div>
+
+    <div class="grid g4">
+      <div class="cell"><span class="lab">Code</span><h3>Repository</h3><p>The full framework, README and CI workflow.</p>
+        <a class="more" href="https://github.com/raphaelbouskila148-code/brewdog-automation" target="_blank" rel="noopener">Open on GitHub →</a></div>
+      <div class="cell"><span class="lab">Report</span><h3>Allure report</h3><p>Published automatically from the latest run on main.</p>
+        <a class="more" href="https://raphaelbouskila148-code.github.io/brewdog-automation/" target="_blank" rel="noopener">Open the report →</a></div>
+      <div class="cell"><span class="lab">Plan</span><h3>Test plan (STD)</h3><p>All 37 cases with steps, expected result, data, priority and the exact run command.</p>
+        <a class="more" href="https://github.com/raphaelbouskila148-code/brewdog-automation/raw/main/docs/BrewDog_STD.xlsx">Download the STD →</a></div>
+      <div class="cell"><span class="lab">Where it started</span><h3>The manual round</h3><p>246 cases, 72 defects and the release recommendation — the report this project grew out of.</p>
+        <a class="more" href="https://raphaelbouskila148-code.github.io/raphael-QA-HTML1/brewdog-str.pdf" target="_blank" rel="noopener">Open the STR →</a></div>
+    </div>
+
+    <div class="note" style="margin-top:28px">
+      <b>Run it yourself:</b> <code>pip install -r requirements.txt</code> → <code>playwright install</code> →
+      <code>pytest</code>. The browser opens in slow motion with the marks drawn on the page, exactly as in
+      the recordings above.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h3 class="d3">Raphael Bouskila</h3>
+      <p>QA Engineer · Manual &amp; Automation Testing</p>
+      <p>raphaelbouskila148@gmail.com · 054-774-6253</p>
+      <p class="disclaimer">
+        An independent QA portfolio case study. Not affiliated with, endorsed by or connected to BrewDog.
+        All testing was carried out against the public website as an ordinary visitor would use it: no orders
+        were placed, no accounts were created and no newsletter signups were completed. Screenshots and
+        recordings are my own test evidence. Product names and trade marks belong to their owners.
+      </p>
+    </div>
+    <div class="links">
+      <a href="https://raphaelbouskila148-code.github.io/raphael-QA-HTML1/" target="_blank" rel="noopener">Portfolio</a>
+      <a href="https://github.com/raphaelbouskila148-code" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/raphael-bouskila/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://raphaelbouskila148-code.github.io/brewdog-automation/" target="_blank" rel="noopener">Allure report</a>
+    </div>
+  </div>
+</footer>
+
+
+
+</body>
+</html>
