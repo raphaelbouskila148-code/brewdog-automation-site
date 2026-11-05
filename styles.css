@@ -68,8 +68,8 @@ section.dark code{ background:#1B3A57; color:#CFE6F2; }
 .nav .brand{ font-family:var(--disp); font-size:19px; text-transform:uppercase; text-decoration:none; }
 .nav .brand i{ color: var(--teal); font-style:normal; }
 .nav ul{ display:flex; gap:22px; list-style:none; margin:0 0 0 auto; padding:0; }
-.nav a.l{ font-family:var(--mono); font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase;
-  color:#BFBFBF; text-decoration:none; }
+.nav a.l{ font-family:var(--disp); font-weight:400; font-size:16px; letter-spacing:.8px;
+  text-transform:uppercase; color:#BFBFBF; text-decoration:none; }
 .nav a.l:hover{ color: var(--teal); }
 .navtoggle{ display:none; margin-left:auto; background:none; border:1px solid #333; color:#fff;
   padding:5px 10px; font-size:15px; cursor:pointer; }
