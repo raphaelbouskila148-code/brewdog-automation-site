@@ -316,7 +316,7 @@
     <div class="grid g4" style="margin-bottom:26px">
       <div class="cell"><span class="lab">tests/</span><h3>What to check</h3><p>11 classes, 37 tests. Asserts only — readable as plain English.</p></div>
       <div class="cell"><span class="lab">pages/</span><h3>How to do it</h3><p>10 page objects. Every locator and every action lives here.</p></div>
-      <div class="cell"><span class="lab">base_page.py</span><h3>The single door</h3><p>The only file that calls Playwright directly. All pages inherit from it.</p></div>
+      <div class="cell"><span class="lab">base_page.py · brewdog_page.py</span><h3>Two layers underneath</h3><p>Plain Playwright commands that would work on any site, then everything that belongs to BrewDog on top. Every page inherits both.</p></div>
       <div class="cell"><span class="lab">usa.brewdog.com</span><h3>The real store</h3><p>Tests run against the live site — never a mock, never a staging copy.</p></div>
     </div>
 
@@ -330,9 +330,11 @@
 ├── <b>data/</b>test_data.json           <i># the rows the data-driven tests run on</i>
 ├── <b>docs/</b>BrewDog_STD.xlsx         <i># the test plan, written before the code</i>
 ├── <b>pages/</b>                        <i># page objects (POM)</i>
-│     base_page.py  home_page.py  collection_page.py  product_page.py
-│     search_page.py  cart_page.py  login_page.py  newsletter_form.py
-│     region_selector.py  bar_locator_page.py  screen_marks.py
+│     base_page.py                <i># plain Playwright commands, portable to any project</i>
+│     brewdog_page.py             <i># the site: address, age popup, search, bot check</i>
+│     home_page.py  collection_page.py  product_page.py  search_page.py
+│     cart_page.py  login_page.py  newsletter_form.py  region_selector.py
+│     bar_locator_page.py  screen_marks.py
 ├── <b>tests/</b>                        <i># one file per area of the shop</i>
 │     test_homepage.py  test_shop.py  test_product.py  test_search.py
 │     test_cart.py  test_footer.py  test_mobile.py  test_login.py
@@ -380,6 +382,46 @@
     <div class="cta" style="margin-top:30px">
       <a class="btn inv" href="https://raphaelbouskila148-code.github.io/brewdog-automation/" target="_blank" rel="noopener">Open the live report</a>
       <a class="btn inv" href="https://github.com/raphaelbouskila148-code/brewdog-automation/actions" target="_blank" rel="noopener">See the workflow runs</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== REPORT SHOTS -->
+<section id="report">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="d2">Inside the report</h2>
+      <p class="sub">
+        The report is live and anyone can open it, but here is what it actually looks like. These are from a
+        run on my own machine — 35 passed, 2 known issues. The published report shows the latest CI run, where
+        more tests report as skipped because the live site challenges traffic coming from a datacenter.
+      </p>
+    </div>
+
+    <div class="shots">
+      <figure class="wide">
+        <img src="assets/report/report-steps.png" alt="One test open in Allure, showing its nested steps: open the homepage, go to the path, check the site is not blocking the visit, confirm the age.">
+        <figcaption><b>One test, every step</b>Nothing here was written by hand. Each page object method carries an <code>@allure.step</code>, so the report rebuilds the test as a readable sequence — the path it opened, the bot check, the age popup — each with its own timing and its own attachment. A failure points at a step, not at a stack trace. On the left, all eleven test files; the numbering matches the manual test cases, so a red test traces straight back to a written case.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="assets/report/report-overview.png" alt="The Allure overview page showing 37 test cases and the environment table.">
+        <figcaption><b>Overview</b>37 test cases, and an environment table written by a fixture at the start of every run: the site, the browser and its version, the Python version, the operating system, and whether it ran on my computer or on GitHub Actions.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="assets/report/report-behaviors.png" alt="The Behaviors view showing epics broken into features.">
+        <figcaption><b>Behaviors</b>The same tests grouped the way a person thinks about the shop rather than the way the files are arranged: four epics, broken into features — footer, homepage, mobile, product page, search, shop categories.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="assets/report/report-graphs.png" alt="Allure graphs: status doughnut, severity bar chart and duration histogram.">
+        <figcaption><b>Graphs</b>Status, severity and duration. The severity chart is worth a look: every test is tagged critical, normal or minor, so a failure can be read as how much it matters, not just how many.</figcaption>
+      </figure>
+    </div>
+
+    <div class="cta" style="margin-top:30px">
+      <a class="btn" href="https://raphaelbouskila148-code.github.io/brewdog-automation/" target="_blank" rel="noopener">Open the live report</a>
     </div>
   </div>
 </section>

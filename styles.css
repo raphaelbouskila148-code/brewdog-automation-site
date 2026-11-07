@@ -169,6 +169,17 @@ section.dark .cell.media video{ border-color: var(--dline); }
 .strip figcaption b{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:1.5px;
   text-transform:uppercase; color: var(--ink); margin-bottom:5px; }
 
+/* allure report screenshots ----------------------------------------- */
+.shots{ display:grid; grid-template-columns:1fr; gap:0;
+  border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.shots figure{ margin:0;
+  border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+  background: var(--paper); }
+.shots img{ width:100%; display:block; border-bottom:1px solid var(--line); }
+.shots figcaption{ padding:17px 22px 19px; font-size:14.6px; color: var(--body); max-width:88ch; }
+.shots figcaption b{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:1.5px;
+  text-transform:uppercase; color: var(--ink); margin-bottom:5px; }
+
 /* marks ------------------------------------------------------------- */
 .marks{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
 .mk{ border:3px solid; padding:18px 20px; background: var(--paper); }
